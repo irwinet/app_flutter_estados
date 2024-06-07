@@ -4,4 +4,5 @@ class Usuario {
   List<String> profesiones;
 
   Usuario({required this.nombre, required this.edad, required this.profesiones});
+  // : assert(nombre != null);
 }

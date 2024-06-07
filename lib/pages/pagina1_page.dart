@@ -1,3 +1,5 @@
+import 'package:app_flutter_estados/models/usuario.dart';
+import 'package:app_flutter_estados/services/usuario_service.dart';
 import 'package:flutter/material.dart';
 
 
@@ -11,7 +13,9 @@ class Pagina1Page extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Pagina 1'),
       ),
-      body: const InformacionUsuario(),
+      body: usuarioService.existeUsuario 
+        ? InformacionUsuario(usuario: usuarioService.usuario!,)
+        : const Center(child: Text('No hay informacion del usuario'),),
      floatingActionButton: FloatingActionButton(
       child: const Icon(Icons.next_plan),
       onPressed: () => Navigator.pushNamed(context, 'pagina2'),
@@ -21,7 +25,10 @@ class Pagina1Page extends StatelessWidget {
 }
 
 class InformacionUsuario extends StatelessWidget {
-  const InformacionUsuario({super.key});
+  
+  final Usuario usuario;
+  
+  const InformacionUsuario({super.key, required this.usuario});
 
   
   @override
@@ -30,16 +37,16 @@ class InformacionUsuario extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       padding: const EdgeInsets.all(20.0),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('General', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-          Divider(),
-          ListTile(title: Text('Nombre: '),),
-          ListTile(title: Text('Edad: '),),
+          const Text('General', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+          const Divider(),
+          ListTile(title: Text('Nombre: ${usuario.nombre}'),),
+          ListTile(title: Text('Edad: ${usuario.edad}'),),
 
-          Text('Profesiones', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-          Divider(),
+          const Text('Profesiones', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+          const Divider(),
           ListTile(title: Text('Profesion 1: '),),
           ListTile(title: Text('Profesion 2: '),),
           ListTile(title: Text('Profesion 3: '),),
