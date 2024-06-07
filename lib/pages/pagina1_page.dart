@@ -13,9 +13,14 @@ class Pagina1Page extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Pagina 1'),
       ),
-      body: usuarioService.existeUsuario 
-        ? InformacionUsuario(usuario: usuarioService.usuario!,)
-        : const Center(child: Text('No hay informacion del usuario'),),
+      body: StreamBuilder(
+        stream: usuarioService.usuarioStream,        
+        builder: (BuildContext context, AsyncSnapshot<Usuario> snapshot) {
+          return snapshot.hasData
+            ? InformacionUsuario(usuario: snapshot.data!,)
+            : const Center(child: Text('No hay informacion del usuario'),);
+        },
+      ),
      floatingActionButton: FloatingActionButton(
       child: const Icon(Icons.next_plan),
       onPressed: () => Navigator.pushNamed(context, 'pagina2'),
